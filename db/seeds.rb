@@ -21,6 +21,7 @@ product_4.save
 product_5 = Product.new(title: "Orange", price: "0.5 $", image_url: "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwi9ptnSlt7YAhUJwlQKHUNsBgMQjRwIBw&url=http%3A%2F%2Feskipaper.com%2Ffree-orange-wallpaper.html&psig=AOvVaw2WPJeGM_CLMNrSdn2N6Djc&ust=1516250293620370", description: "Orange")
 product_5.save
 
+# product = Product.new(title: "Grapes", price: "2.5 $", image_url: "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjToN6pqefYAhULrVQKHUtICmQQjRwIBw&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fgrapes&psig=AOvVaw1Hr37AvJf0fJGd6ud6BSMZ&ust=1516564522374842", description: "Purple")
 
 
 
