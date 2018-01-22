@@ -44,13 +44,13 @@ elsif input_option == "4"
   input_id = gets.chomp
   response = Unirest.get("http://localhost:3000/products/#{input_id}")
   product = response.body
-  puts "Enter the title of the product:"
+  puts "Enter the title of the product (#{product['title']}): "
   params["title"] = gets.chomp
-  puts "Enter a price of the product:"
+  puts "Enter a price of the product (#{product['tprice']}):"
   params["price"] = gets.chomp
-  puts "Enter a picture of the product:"
+  puts "Enter a picture of the product (#{product['url_image']}):"
   params["url_image"] = gets.chomp
-  puts "Enter a description of the product:"
+  puts "Enter a description of the product (#{product['description']}):"
   params["description"] = gets.chomp
   params.delete_if { |key, value| value.empty? }
   response = Unirest.patch("http://localhost:3000/products/#{input_id}", parameters: params)
