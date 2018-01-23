@@ -46,7 +46,7 @@ elsif input_option == "4"
   product = response.body
   puts "Enter the title of the product (#{product['title']}): "
   params["title"] = gets.chomp
-  puts "Enter a price of the product (#{product['tprice']}):"
+  puts "Enter a price of the product (#{product["price"]}):"
   params["price"] = gets.chomp
   puts "Enter a picture of the product (#{product['url_image']}):"
   params["url_image"] = gets.chomp
