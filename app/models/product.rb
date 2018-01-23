@@ -21,7 +21,8 @@ class Product < ApplicationRecord
     description: description,
     is_discounted: is_discounted?,
     tax: tax, 
-    total: total
+    total: total,
+    availability: availability
   }
   end
 end

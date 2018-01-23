@@ -35,6 +35,9 @@ elsif input_option == "3"
   params["image_url"] = gets.chomp
   puts "Enter a descriptions of the product:"
   params["description"] = gets.chomp
+  puts "Enter true if a pruduct is in-stock and false if a pruduct is out-of-stock:"
+  params["availability"] = gets.chomp
+
   response = Unirest.post("http://localhost:3000/products", parameters: params)
   product = response.body
   puts JSON.pretty_generate(product)
@@ -52,6 +55,9 @@ elsif input_option == "4"
   params["url_image"] = gets.chomp
   puts "Enter a description of the product (#{product['description']}):"
   params["description"] = gets.chomp
+  puts "Enter an availability of the product (#{product['availability']}):"
+  params["availability"] = gets.chomp
+
   params.delete_if { |key, value| value.empty? }
   response = Unirest.patch("http://localhost:3000/products/#{input_id}", parameters: params)
   updated_product = response.body

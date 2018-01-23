@@ -18,7 +18,9 @@ class ProductsController < ApplicationController
       title: params[:title],
       price: params[:price],
       image_url: params[:image_url],
-      description: params[:description])    
+      description: params[:description],
+      availability: params[:availability]
+      )    
     product.save
     render json: product.as_json
   end
@@ -29,7 +31,9 @@ class ProductsController < ApplicationController
       title: params[:title] || product.title,
       price: params[:price] || product.price,
       image_url: params[:image_url] || product.image_url,
-      description: params[:description]) || product.description     
+      description: params[:description] || product.description,
+      availability: params[:availability] || product.availability
+        )   
     render json: product.as_json
   end
 
