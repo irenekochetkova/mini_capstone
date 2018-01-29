@@ -1,8 +1,19 @@
 class ProductsController < ApplicationController
 
   def index
-    products = Product.all
-    render json: products.as_json
+    products = Product.all.order(id: :asc)
+
+    search_term = params[:search]
+    if search_term
+      products = products.where("title LIKE ?", "%#{search_term}%")
+    end
+
+    price_sort = params[:price_sort]
+    if price_sort
+      products = Product.all.order(price: :asc)
+    end
+
+      render json: products.as_json
   end
 
  
@@ -19,7 +30,8 @@ class ProductsController < ApplicationController
       price: params[:price],
       image_url: params[:image_url],
       description: params[:description],
-      availability: params[:availability]
+      availability: params[:availability],
+      supplier_id: params[:supplier_id]
       
       )    
     if product.save
