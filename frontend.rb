@@ -171,7 +171,7 @@ elsif input_option == "12"
   params[:phone_number] = gets.chomp
 
    params.delete_if { |key, value| value.empty? }
-  response = Unirest.patch("http://localhost:3000/suppliers", parameters: params)
+  response = Unirest.patch("http://localhost:3000/suppliers/#{input_id}", parameters: params)
   supplier = response.body
   puts JSON.pretty_generate(supplier)
 
