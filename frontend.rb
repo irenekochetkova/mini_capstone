@@ -1,5 +1,6 @@
 require 'unirest'
 
+while true
 # response = Unirest.get("http://localhost:3000/all_products")
 # all_products = response.body
 # puts JSON.pretty_generate(all_products)
@@ -23,6 +24,11 @@ puts "[9] See all suppliers:"
 puts "[10] See one supplier:"
 puts "[11] Create a supplier:"
 puts "[12] Update the supplier:"
+
+puts "[13] Create an order:"
+puts "[14] See all orders:"
+
+puts "[q] To quit"
 
 
 input_option = gets.chomp
@@ -129,9 +135,9 @@ elsif input_option == "7"
   jwt = response.body["jwt"]
   Unirest.default_header("Authorization", "Bearer #{jwt}")
 elsif input_option == "8"
-  jwt = ""
-  Unirest.clear_default_headers()
-
+    jwt = ""
+    Unirest.clear_default_headers()
+    puts "Logged out"
 
 elsif input_option == "9"
   response = Unirest.get("http://localhost:3000/suppliers")
@@ -175,27 +181,30 @@ elsif input_option == "12"
   supplier = response.body
   puts JSON.pretty_generate(supplier)
 
+elsif input_option == "13"
+  puts "Create an order: "
+  puts "Enter product id: "
+  input_product_id = gets.chomp
+  
+  puts "Enter a quantity of the product:"
+  input_quantity = gets.chomp
 
-
-
+  response = Unirest.post("http://localhost:3000/orders", parameters: {product_id: input_product_id, quantity: input_quantity})
+  order = response.body
+  puts JSON.pretty_generate(order)
+elsif input_option = "14"
+  puts "Here are all your orders: "
+    response = Unirest.get("http://localhost:3000/orders")
+    orders = response.body
+    puts JSON.pretty_generate(orders)
+    
+elsif input_option == "q"
+  puts "Bye!"
+  break
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Press enter to continue"
+gets.chomp
+end
 
 
 

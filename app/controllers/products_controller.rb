@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
 
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
+    
+
     products = Product.all.order(id: :asc)
 
     search_term = params[:search]
@@ -11,9 +15,10 @@ class ProductsController < ApplicationController
     price_sort = params[:price_sort]
     if price_sort
       products = Product.all.order(price: :asc)
-    end
+    else
 
       render json: products.as_json
+    end
   end
 
  
@@ -25,13 +30,15 @@ class ProductsController < ApplicationController
   end
 
   def create
+    
     product = Product.new(
       title: params[:title],
       price: params[:price],
       image_url: params[:image_url],
       description: params[:description],
       availability: params[:availability],
-      supplier_id: params[:supplier_id]
+      supplier_id: params[:supplier_id],
+      
       
       )    
     if product.save
@@ -39,9 +46,11 @@ class ProductsController < ApplicationController
     else
      render json: {errors: product.errors.full_messages, status: :unprocessable_entity}
    end
-  end
+  
+end
 
   def update
+   
     product = Product.find_by(id: params[:id])
     product.update(
       title: params[:title] || product.title,
@@ -55,12 +64,16 @@ class ProductsController < ApplicationController
         else
           render json: {errors: product.errors.full_messages, status: :unprocessable_entity}
         end
+      
+
   end
 
   def destroy
+    
     product = Product.find_by(id: params[:id])
     product.destroy
-    render json: {message: "Product successfully destroed."}
-  end
+    render json: {message: "Successfully destroyed product ##{product.id}"}
+  
+end
 
 end
