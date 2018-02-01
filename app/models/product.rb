@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
 
+  has_many :category_products 
+  has_many :categories, through: :category_products
   has_many :oders
   belongs_to :supplier
 
@@ -22,7 +24,7 @@ class Product < ApplicationRecord
     price.to_f * 0.09
   end
 
-  
+
 
   def total
     price.to_f + tax
@@ -39,7 +41,9 @@ class Product < ApplicationRecord
     tax: tax, 
     total: total,
     availability: availability,
-    supplier: supplier.as_json
+    supplier: supplier.as_json,
+    categories: categories.map { |category| category.title 
+    }
   }
   end
 end

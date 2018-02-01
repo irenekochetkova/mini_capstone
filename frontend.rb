@@ -11,10 +11,19 @@ puts "Welcom to the Mini Capstone! Select an option:"
 puts "[1] See all products"
 puts "[1.1] Search by product title"
 puts "[1.2] Sort by product price"
+# puts "[1.3] See all product and associated categories"
+
 puts "[2] See one product"
+puts "[2.1] See one product and associated categories"
+
+# if admin
 puts "[3] Create a product"
 puts "[4] Update the products:"
 puts "[5] Delete products:"
+puts "[11] Create a supplier:"
+puts "[12] Update the supplier:"
+
+# end
 
 puts "[6] Signup (create a user)"
 puts "[7] Login (createa JSON web token)"
@@ -22,11 +31,13 @@ puts "[8] Logout (erase a Json web token)"
 
 puts "[9] See all suppliers:"
 puts "[10] See one supplier:"
-puts "[11] Create a supplier:"
-puts "[12] Update the supplier:"
+
+
 
 puts "[13] Create an order:"
 puts "[14] See all orders:"
+
+puts "[15] See all categories:"
 
 puts "[q] To quit"
 
@@ -51,12 +62,21 @@ elsif input_option == "1.2"
   products = response.body
   puts JSON.pretty_generate(products)
 
+# elsif input_option == "1.3"
+#   response = Unirest.get("http://localhost:3000/categories_products")
+#   categories_products = response.body
+#   puts JSON.pretty_generate(categories_products)
+
+
 elsif input_option == "2"
   puts "Enter the ID of the product to see:"
   input_id = gets.chomp
   response = Unirest.get("http://localhost:3000/products/#{input_id}")
   product = response.body
   puts JSON.pretty_generate(product)
+
+
+
 elsif input_option == "3"
   params = {}
   puts "Enter a title of the product:"
@@ -78,12 +98,12 @@ elsif input_option == "3"
   response = Unirest.post("http://localhost:3000/products", parameters: params)
   product = response.body
 
-if product["errors"]
-  puts "Error saving your product!"
-  puts product["errors"]
-else
-  puts JSON.pretty_generate(product)
-end
+  if product["errors"]
+    puts "Error saving your product!"
+    puts product["errors"]
+  else
+    puts JSON.pretty_generate(product)
+  end
 
 elsif input_option == "4"
   params = {}
@@ -126,14 +146,20 @@ elsif input_option == "6"
   response = Unirest.post("http://localhost:3000/users", parameters: params)
   puts JSON.pretty_generate(response.body)
 elsif input_option == "7"
+  puts "Login:"
   puts "Email: "
   input_email = gets.chomp
   puts "Password: "
   input_password = gets.chomp
   response = Unirest.post("http://localhost:3000/user_token", parameters: {auth: {email: input_email, password: input_password}})
-  puts JSON.pretty_generate(response.body)
+  # puts JSON.pretty_generate(response.body)
   jwt = response.body["jwt"]
-  Unirest.default_header("Authorization", "Bearer #{jwt}")
+  p jwt
+
+  admin = response.body["admin"]
+  p admin
+    # Include the jwt in the headers of any future web requests
+  Unirest.default_header("Authorization", "Bearer #{jwt}") 
 elsif input_option == "8"
     jwt = ""
     Unirest.clear_default_headers()
@@ -192,17 +218,23 @@ elsif input_option == "13"
   response = Unirest.post("http://localhost:3000/orders", parameters: {product_id: input_product_id, quantity: input_quantity})
   order = response.body
   puts JSON.pretty_generate(order)
-elsif input_option = "14"
+
+elsif input_option == "14"
   puts "Here are all your orders: "
     response = Unirest.get("http://localhost:3000/orders")
     orders = response.body
     puts JSON.pretty_generate(orders)
-    
+
+elsif input_option == "15"
+    response = Unirest.get("http://localhost:3000/categories")
+  categories = response.body
+  puts JSON.pretty_generate(categories)
+
 elsif input_option == "q"
   puts "Bye!"
   break
 end
-"Press enter to continue"
+puts "Press enter to continue"
 gets.chomp
 end
 

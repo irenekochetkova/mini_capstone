@@ -15,10 +15,10 @@ class ProductsController < ApplicationController
     price_sort = params[:price_sort]
     if price_sort
       products = Product.all.order(price: :asc)
-    else
+    end
 
       render json: products.as_json
-    end
+    
   end
 
  
