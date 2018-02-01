@@ -1,29 +1,29 @@
 require 'unirest'
 
+admin = false
+
 while true
-# response = Unirest.get("http://localhost:3000/all_products")
-# all_products = response.body
-# puts JSON.pretty_generate(all_products)
 
 system "clear"
 
 puts "Welcom to the Mini Capstone! Select an option:"
+puts "Make a selection:"
 puts "[1] See all products"
 puts "[1.1] Search by product title"
 puts "[1.2] Sort by product price"
-# puts "[1.3] See all product and associated categories"
+
 
 puts "[2] See one product"
 puts "[2.1] See one product and associated categories"
 
-# if admin
+if admin
 puts "[3] Create a product"
 puts "[4] Update the products:"
 puts "[5] Delete products:"
 puts "[11] Create a supplier:"
 puts "[12] Update the supplier:"
 
-# end
+end
 
 puts "[6] Signup (create a user)"
 puts "[7] Login (createa JSON web token)"
@@ -61,11 +61,6 @@ elsif input_option == "1.2"
   response = Unirest.get("http://localhost:3000/products?price_sort=true")
   products = response.body
   puts JSON.pretty_generate(products)
-
-# elsif input_option == "1.3"
-#   response = Unirest.get("http://localhost:3000/categories_products")
-#   categories_products = response.body
-#   puts JSON.pretty_generate(categories_products)
 
 
 elsif input_option == "2"
