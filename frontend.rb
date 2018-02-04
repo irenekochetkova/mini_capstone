@@ -82,13 +82,10 @@ elsif input_option == "3"
   params["image_url"] = gets.chomp
   puts "Enter a descriptions of the product:"
   params["description"] = gets.chomp
-  puts "Enter false if a product is out-of-stock:"
-  params["availability"] = gets.chomp
-
+ 
+  params["availability"] = true
   puts "Enter a supplier`s ID: "
-  params[:supplier_id] = gets.chomp
-  # response = Unirest.get("http://localhost:3000/suppliers/#{input_id_supplier}")
-  # puts JSON.pretty_generate(response.body)
+  params["supplier_id"] = gets.chomp
 
   response = Unirest.post("http://localhost:3000/products", parameters: params)
   product = response.body

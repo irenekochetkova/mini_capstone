@@ -37,14 +37,12 @@ class ProductsController < ApplicationController
       image_url: params[:image_url],
       description: params[:description],
       availability: params[:availability],
-      supplier_id: params[:supplier_id],
-      
-      
+      supplier_id: params[:supplier_id]     
       )    
     if product.save
       render json: product.as_json
     else
-     render json: {errors: product.errors.full_messages, status: :unprocessable_entity}
+      render json: {errors: product.errors.full_messages, status: :unprocessable_entity}
    end
   
 end
