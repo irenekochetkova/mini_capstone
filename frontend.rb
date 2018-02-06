@@ -1,4 +1,5 @@
 require 'unirest'
+# require 'tty-prompt'
 
 admin = false
 
@@ -38,6 +39,7 @@ puts "[13] Create an order:"
 puts "[14] See all orders:"
 
 puts "[15] See all categories:"
+puts "[cart] See my shiopping cart"
 
 puts "[q] To quit"
 
@@ -69,6 +71,20 @@ elsif input_option == "2"
   response = Unirest.get("http://localhost:3000/products/#{input_id}")
   product = response.body
   puts JSON.pretty_generate(product)
+  
+  puts "Press enter to continue or type 'c' to add to cart"
+    if gets.chomp == "c"
+      puts "Enter quantity to add to cart: "
+      quantity = gets.chomp
+      params = {
+        quantity: quantity,
+        product_id: input_id
+      }
+      response = Unirest.post("http://localhost:3000/carted_products", parameters: params)
+      carted_product = response.body
+      puts JSON.pretty_generate(carted_product)
+    end
+
 
 
 
@@ -221,6 +237,26 @@ elsif input_option == "15"
     response = Unirest.get("http://localhost:3000/categories")
   categories = response.body
   puts JSON.pretty_generate(categories)
+
+
+
+   elsif input_option == "cart"
+    puts "Here are all the items in your shopping cart:"
+    response = Unirest.get("http://localhost:3000/carted_products")
+    carted_products = response.body
+    puts JSON.pretty_generate(carted_products)
+    puts "Press enter to continue or press 'o' to place the order, or press 'r' to remove a product"
+    sub_option = gets.chomp
+    if sub_option == "o"
+      response = Unirest.post("http://localhost:3000/orders")
+      order = response.body
+      puts JSON.pretty_generate(order)
+    elsif sub_option == "r"
+      puts "Enter id of carted product to remove: "
+      id = gets.chomp
+      response = Unirest.delete("http://localhost:3000/carted_products/#{id}")
+      puts JSON.pretty_generate(response.body)
+    end 
 
 elsif input_option == "q"
   puts "Bye!"
