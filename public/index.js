@@ -7,7 +7,7 @@ var productRow = document.querySelector(".row");
 // productDeck.appendChild(productTemplate.content.cloneNode(true));
 // productDeck.appendChild(productTemplate.content.cloneNode(true));
 
-axios.get("http://localhost:3000/products").then(function(response){
+axios.get("https://obscure-taiga-94094.herokuapp.com/products").then(function(response){
   var products = response.data;
   console.log(response.data);
 
