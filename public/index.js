@@ -3,7 +3,7 @@ var productRow = document.querySelector(".row");
 
 
 
-axios.get("https://obscure-taiga-94094.com/products").then(function(response){
+axios.get("https://obscure-taiga-94094.herokuapp.com/products").then(function(response){
 
 
   var products = response.data;
