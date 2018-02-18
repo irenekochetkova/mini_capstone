@@ -5,6 +5,7 @@ Supplier.create!([
   {name: "AllFruits", email: "allfruits@gmail.com", phone_number: "3762940"},
   {name: "FreshFruits", email: "freshfruits@gmail.com", phone_number: "4837554"}
 ])
+
 Product.create!([
   {title: "Strawberry", price: "5.0", image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/PerfectStrawberry.jpg/220px-PerfectStrawberry.jpg", description: "Red", supplier_id: 3, availability: true},
   {title: "Pineapple", price: "3.5", image_url: "https://www.organicfacts.net/wp-content/uploads/2013/06/Pineapple.jpg", description: "Yellow", supplier_id: 1, availability: true},
@@ -16,10 +17,12 @@ Product.create!([
   {title: "Pear", price: "2.0", image_url: "http://healthyrise.com/wp-content/uploads/2016/09/Pear-2.jpg", description: "Yellow", supplier_id: 2, availability: true},
   {title: "Apple", price: "3.0", image_url: "https://www.chelanfresh.com/hs-fs/hubfs/Images/honey-crisp-apple-chelan-fresh.png?t=1517307882428&width=238&height=301&name=honey-crisp-apple-chelan-fresh.png", description: "red", supplier_id: 1, availability: true}
 ])
+
 User.create!([
   {name: "victor", email: "victor@gmail.com", password_digest: "$2a$10$mijDMtZkqieuPn.Y2wjrS.VkDiVr4ymHPa0hhmWeTr8BjHMcCdgZe", admin: false},
   {name: "irene", email: "irene@gmail.com", password_digest: "$2a$10$W4aG41K0ufvDfDCH5nr6EuxwDys1qxq3wqqPD.e89E.9GV1B2tK5W", admin: true}
 ])
+
 CartedProduct.create!([
   {user_id: 1, product_id: 1, quantity: 2, status: "carted", order_id: nil},
   {user_id: 1, product_id: 1, quantity: 2, status: "created", order_id: nil}
